@@ -107,9 +107,9 @@ jobs:
           set -x
           chmod +x $SETTING_SCRIPT
           cd rt-n56u/trunk/configs/templates
-          cp -f ${{ inputs.target }}.config .config
+          cp -f ${{ inputs.target }}.config TNAME.config
           $GITHUB_WORKSPACE/$SETTING_SCRIPT
-          cp -f .config ${{ inputs.target }}.config
+          cp -f TNAME.config ${{ inputs.target }}.config
         
       - name: Start Build
         run: |
