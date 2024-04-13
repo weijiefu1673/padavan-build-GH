@@ -109,7 +109,7 @@ jobs:
           cd rt-n56u/trunk/configs/templates
           cp -f ${{ inputs.target }}.config TNAME.config
           $GITHUB_WORKSPACE/$SETTING_SCRIPT
-          cp -f TNAME.config ${{ inputs.target }}.config
+          #cp -f TNAME.config ${{ inputs.target }}.config
         
       - name: Start Build
         run: |
