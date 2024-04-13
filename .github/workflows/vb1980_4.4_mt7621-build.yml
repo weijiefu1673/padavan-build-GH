@@ -115,6 +115,7 @@ jobs:
         
       - name: Start Build
         run: |
+          cd rt-n56u
           make ${{ inputs.target }}
           echo "TAG_ANME=$(date +%Y%m%d)" >> $GITHUB_ENV
 
