@@ -116,6 +116,7 @@ jobs:
       - name: Start Build
         run: |
           cd rt-n56u
+          sed -i 's/mipsel-linux-uclibc-gcc10.tar.xz/mipsel-linux-uclibc-gcc-12.3.0.tar.xz/g' Makefile
           make ${{ inputs.target }}
           echo "TAG_ANME=$(date +%Y%m%d)" >> $GITHUB_ENV
 
