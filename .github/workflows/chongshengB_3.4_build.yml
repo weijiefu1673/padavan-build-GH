@@ -96,6 +96,7 @@ jobs:
       run: |
         cd rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
+        cp -f toolchain-3.4.x/bin/mipsel-linux-uclibc-gcc-7.4.0 toolchain-3.4.x/bin/mipsel-linux-uclibc-gcc
 
     - name: Compile the firmware
       run: |
