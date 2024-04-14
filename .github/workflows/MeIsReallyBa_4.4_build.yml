@@ -27,6 +27,7 @@ on:
 permissions: write-all
 
 env:
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
   REPO_URL: https://github.com/meisreallyba/padavan-4.4.git
   REPO_BRANCH: main
   TNAME: WR1200JS
@@ -107,14 +108,16 @@ jobs:
       if: env.UPLOAD_FIRMWARE == 'true'
       with:
         name: Padavan_firmware_${{ inputs.target }}_${{ env.BUILD_DATE }}
-        path: rt-n56u/trunk/images/*.trx
+        path: |
+          rt-n56u/trunk/images/*.trx
+          rt-n56u/trunk/.config
 
     - name: Release Firmware
       uses: softprops/action-gh-release@master
       if: env.UPLOAD_RELEASE == 'true'
       with:
         tag_name: ${{env.SOURCE_REPO}}_${{ env.REPO_BRANCH }}_${{ inputs.target }}_${{env.BUILD_DATE}}
-        files:|
+        files: |
           rt-n56u/trunk/images/*.trx
           rt-n56u/trunk/.config
         body: |
