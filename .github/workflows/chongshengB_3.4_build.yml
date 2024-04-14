@@ -1,0 +1,124 @@
+#
+# Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
+#
+# This is free software, licensed under the MIT License.
+# See /LICENSE for more information.
+#
+# https://github.com/P3TERX/Actions-OpenWrt
+# Description: Build OpenWrt using GitHub Actions
+#
+
+name: chongshengB 3.4 build
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        type: choice
+        description: 'Please select the model to compile'
+        options:
+        - 'K2P'
+        - 'NEWIFI3'
+        - 'RM2100'
+        - 'WR1200JS'
+        - 'XY-C1'
+        default: 'K2P'
+
+permissions: write-all
+
+env:
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  REPO_URL: https://github.com/chongshengB/rt-n56u.git
+  REPO_BRANCH: master
+  TNAME: WR1200JS
+  DEPENDS_FILE: depends.txt
+  SETTING_SCRIPT: config/chongshengB_3.4_settings.sh
+  UPLOAD_FIRMWARE: true
+  UPLOAD_RELEASE: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+        
+    - name: Free Disk Space
+      uses: jlumbroso/free-disk-space@main
+      with:
+        tool-cache: true
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        docker-images: true
+        swap-storage: true
+
+    - name: Initialization Environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo -E apt-get -y update
+        sudo -E apt-get -y install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd \
+        fakeroot kmod cpio git python3-docutils gettext automake autopoint \
+        texinfo build-essential help2man pkg-config zlib1g-dev libgmp3-dev \
+        libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget libc-dev-bin
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get -y clean
+        sudo -E timedatectl set-timezone "Asia/Shanghai"
+        
+        export BUILD_DATE=$(TZ=UTC-8 date +"%y.%m.%d_%H.%M.%S")
+        echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
+        SOURCE_REPO="$(echo $REPO_URL | awk -F '/' '{print $(NF)}')"
+        echo "SOURCE_REPO=$SOURCE_REPO" >> $GITHUB_ENV
+
+    - name: Clone source code
+      run: |
+        git clone --depth=1 --branch $REPO_BRANCH $REPO_URL rt-n56u
+        cd rt-n56u
+        echo "======================="
+        lscpu | egrep "name|Core|Thread"
+        echo "======================="
+        df -h
+        echo "======================="
+        du -h --max-depth=1
+        echo "======================="
+          
+    - name: Load configuration
+      run: |
+        set -x
+        chmod +x $SETTING_SCRIPT
+        cd rt-n56u/trunk
+        $GITHUB_WORKSPACE/$SETTING_SCRIPT ${{ inputs.target }}
+
+    - name: Download toolchain
+      run: |
+        cd rt-n56u/toolchain-mipsel
+        sh dl_toolchain.sh
+
+    - name: Compile the firmware
+      run: |
+        cd rt-n56u/trunk
+        cp -f configs/templates/${{ inputs.target }}.config .config
+        sudo ./build_firmware_modify ${{ inputs.target }} 0
+
+    - name: Upload firmware
+      uses: actions/upload-artifact@main
+      if: env.UPLOAD_FIRMWARE == 'true'
+      with:
+        name: Padavan_firmware_${{ inputs.target }}_${{ env.BUILD_DATE }}
+        path: |
+          rt-n56u/trunk/images/*.trx
+          rt-n56u/trunk/.config
+
+    - name: Release Firmware
+      uses: softprops/action-gh-release@master
+      if: env.UPLOAD_RELEASE == 'true'
+      with:
+        tag_name: ${{env.SOURCE_REPO}}_${{ env.REPO_BRANCH }}_${{ inputs.target }}_${{env.BUILD_DATE}}
+        files: |
+          rt-n56u/trunk/images/*.trx
+          rt-n56u/trunk/.config
+        body: |
+            Padavan固件包。
