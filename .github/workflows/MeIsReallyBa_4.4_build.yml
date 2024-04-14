@@ -91,7 +91,6 @@ jobs:
         chmod +x $SETTING_SCRIPT
         cd rt-n56u/trunk
         $GITHUB_WORKSPACE/$SETTING_SCRIPT ${{ inputs.target }}
-        cp -f configs/templates/${{ inputs.target }}.config .config
 
     - name: Download toolchain
       run: |
@@ -101,6 +100,7 @@ jobs:
     - name: Compile the firmware
       run: |
         cd rt-n56u/trunk
+        cp -f configs/templates/${{ inputs.target }}.config .config
         sudo ./build_firmware_modify ${{ inputs.target }} 0
 
     - name: Upload firmware
