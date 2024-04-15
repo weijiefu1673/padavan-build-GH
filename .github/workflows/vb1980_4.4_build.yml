@@ -38,7 +38,12 @@ jobs:
       - uses: hendrikmuhs/ccache-action@main
         with:
           key: vb1980_4.4_${{ inputs.target }}
-      
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          check-latest: true
+          
       - uses: actions/setup-go@main
         with:
           go-version: '^1.19.2'
@@ -48,14 +53,10 @@ jobs:
           path: |
             ~/.cache/go-build
             ~/go/pkg/mod
-          key: vb1980_4.4_${{ inputs.target }}-go-v1
-          restore-keys: vb1980_4.4_${{ inputs.target }}-go-
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          check-latest: true
-          
+          key: ${{ runner.os }}-go-v1
+          restore-keys: |
+            ${{ runner.os }}-go-
+    
       - name: Prepare environment
         run: |
           sudo -E apt-get update
