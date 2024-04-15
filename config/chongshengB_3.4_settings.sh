@@ -50,7 +50,7 @@ sed -i '/CONFIG_FIRMWARE_INCLUDE_TUNSAFE/d' $1.config
 ######################################################################
 #以下选项是定义你需要的功能（y=集成,n=忽略），重新写入到.config文件
 ######################################################################
-echo "CONFIG_FIRMWARE_INCLUDE_OPENVPN=y" >> $1.config
+echo "CONFIG_FIRMWARE_INCLUDE_OPENVPN=n" >> $1.config
 echo "CONFIG_FIRMWARE_INCLUDE_SSWAN=n" >> $1.config
 echo "CONFIG_FIRMWARE_INCLUDE_XUPNPD=n" >> $1.config
 echo "CONFIG_FIRMWARE_INCLUDE_MINIDLNA=n" >> $1.config
