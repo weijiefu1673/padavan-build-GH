@@ -50,7 +50,12 @@ jobs:
             ~/go/pkg/mod
           key: vb1980_4.4_${{ inputs.target }}-go-v1
           restore-keys: vb1980_4.4_${{ inputs.target }}-go-
-            
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          check-latest: true
+          
       - name: Prepare environment
         run: |
           sudo -E apt-get update
