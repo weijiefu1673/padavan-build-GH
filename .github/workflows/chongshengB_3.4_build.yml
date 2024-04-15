@@ -75,9 +75,8 @@ jobs:
 
     - name: Clone source code
       run: |
-        git clone --depth=1 --branch $REPO_BRANCH $REPO_URL opt/rt-n56u
-        ln -sf /opt/rt-n56u $GITHUB_WORKSPACE/opt/rt-n56u
-        cd opt/rt-n56u
+        git clone --depth=1 --branch $REPO_BRANCH $REPO_URL /opt/rt-n56u
+        cd /opt/rt-n56u
         echo "======================="
         lscpu | egrep "name|Core|Thread"
         echo "======================="
@@ -90,17 +89,17 @@ jobs:
       run: |
         set -x
         chmod +x $SETTING_SCRIPT
-        cd opt/rt-n56u/trunk
+        cd /opt/rt-n56u/trunk
         $GITHUB_WORKSPACE/$SETTING_SCRIPT ${{ inputs.target }}
 
     - name: Download toolchain
       run: |
-        cd opt/rt-n56u/toolchain-mipsel
+        cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
 
     - name: Compile the firmware
       run: |
-        cd opt/rt-n56u/trunk
+        cd /opt/rt-n56u/trunk
         cp -f configs/templates/${{ inputs.target }}.config .config
         sudo ./build_firmware_modify ${{ inputs.target }} 0
 
@@ -110,8 +109,8 @@ jobs:
       with:
         name: Padavan_firmware_${{ inputs.target }}_${{ env.BUILD_DATE }}
         path: |
-          opt/rt-n56u/trunk/images/*.trx
-          opt/rt-n56u/trunk/.config
+          /opt/rt-n56u/trunk/images/*.trx
+          /opt/rt-n56u/trunk/.config
 
     - name: Release Firmware
       uses: softprops/action-gh-release@master
@@ -119,7 +118,7 @@ jobs:
       with:
         tag_name: ${{env.SOURCE_REPO}}_${{ env.REPO_BRANCH }}_${{ inputs.target }}_${{env.BUILD_DATE}}
         files: |
-          opt/rt-n56u/trunk/images/*.trx
-          opt/rt-n56u/trunk/.config
+          /opt/rt-n56u/trunk/images/*.trx
+          /opt/rt-n56u/trunk/.config
         body: |
             Padavan固件包。
