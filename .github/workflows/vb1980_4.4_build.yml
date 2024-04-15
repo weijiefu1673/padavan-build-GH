@@ -18,7 +18,7 @@ on:
 
 env:
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  REPO_URL: https://github.com/weijiefu1673/vb1980_padavan-4.4.git
+  REPO_URL: https://github.com/vb1980/padavan-4.4.git
   REPO_BRANCH: main
   TNAME: WR1200JS
   DEPENDS_FILE: depends.txt
