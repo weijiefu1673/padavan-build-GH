@@ -92,7 +92,7 @@ jobs:
       - name: Compile the firmware
         run: |
           cd rt-n56u
-          sed -i 's/tsl0922\/padavan/weijiefu1673\/vb1980_padavan-4.4/g' Makefile
+          sed -i 's/mipsel-linux-uclibc-gcc10.tar.xz/mipsel-linux-uclibc.tar.xz/g' Makefile
           make ${{ inputs.target }}
 
       - name: Upload firmware
