@@ -48,7 +48,8 @@ jobs:
           path: |
             ~/.cache/go-build
             ~/go/pkg/mod
-          key: vb1980_4.4_${{ inputs.target }}_go
+          key: vb1980_4.4_${{ inputs.target }}-go-v1
+          restore-keys: vb1980_4.4_${{ inputs.target }}-go-
             
       - name: Prepare environment
         run: |
