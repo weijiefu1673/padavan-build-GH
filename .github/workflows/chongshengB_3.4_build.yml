@@ -100,6 +100,7 @@ jobs:
     - name: Compile the firmware
       run: |
         cd /opt/rt-n56u/trunk
+        sed -i "s/gomirrors.org\/dl\/go/go.dev\/dl/g" tools/Makefile
         cp -f configs/templates/${{ inputs.target }}.config .config
         sudo ./build_firmware_modify ${{ inputs.target }} 0
 
