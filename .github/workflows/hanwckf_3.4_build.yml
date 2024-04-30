@@ -106,7 +106,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: env.UPLOAD_FIRMWARE == 'true'
       with:
-        name: Padavan_3.4_firmware_${{ inputs.target }}_${{ env.BUILD_DATE }}
+        name: Padavan_3.4_${{ inputs.target }}_${{ env.BUILD_DATE }}
         path: |
           rt-n56u/trunk/images/*.trx
           rt-n56u/trunk/.config
