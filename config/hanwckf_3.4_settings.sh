@@ -51,7 +51,7 @@ sed -i '/CONFIG_FIRMWARE_INCLUDE_WIREGUARD/d' $1.config
 ######################################################################
 echo "CONFIG_FIRMWARE_INCLUDE_OPENVPN=y" >> $1.config
 echo "CONFIG_FIRMWARE_INCLUDE_SSWAN=n" >> $1.config
-echo "CONFIG_FIRMWARE_INCLUDE_XUPNPD=n" >> $1.config
+echo "CONFIG_FIRMWARE_INCLUDE_XUPNPD=y" >> $1.config
 echo "CONFIG_FIRMWARE_INCLUDE_MINIDLNA=n" >> $1.config
 echo "CONFIG_FIRMWARE_INCLUDE_FIREFLY=n" >> $1.config
 echo "CONFIG_FIRMWARE_INCLUDE_FFMPEG_NEW=n" >> $1.config
@@ -70,14 +70,14 @@ echo "CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_CLIENT=n" >> $1.config
 echo "CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_CMD=n" >> $1.config
 echo "CONFIG_FIRMWARE_INCLUDE_VLMCSD=y" >> $1.config
 echo "CONFIG_FIRMWARE_INCLUDE_TTYD=y" >> $1.config
-echo "CONFIG_FIRMWARE_INCLUDE_LRZSZ=n" >> $1.config
-echo "CONFIG_FIRMWARE_INCLUDE_HTOP=n" >> $1.config
-echo "CONFIG_FIRMWARE_INCLUDE_NANO=n" >> $1.config
+echo "CONFIG_FIRMWARE_INCLUDE_LRZSZ=y" >> $1.config
+echo "CONFIG_FIRMWARE_INCLUDE_HTOP=y" >> $1.config
+echo "CONFIG_FIRMWARE_INCLUDE_NANO=y" >> $1.config
 echo "CONFIG_FIRMWARE_INCLUDE_IPERF3=y" >> $1.config
 echo "CONFIG_FIRMWARE_INCLUDE_DUMP1090=n" >> $1.config
 echo "CONFIG_FIRMWARE_INCLUDE_RTL_SDR=n" >> $1.config
 echo "CONFIG_FIRMWARE_INCLUDE_MTR=n" >> $1.config
-echo "CONFIG_FIRMWARE_INCLUDE_SOCAT=n" >> $1.config
+echo "CONFIG_FIRMWARE_INCLUDE_SOCAT=y" >> $1.config
 echo "CONFIG_FIRMWARE_INCLUDE_SRELAY=n" >> $1.config
 echo "CONFIG_FIRMWARE_INCLUDE_MENTOHUST=n" >> $1.config
 echo "CONFIG_FIRMWARE_INCLUDE_FRPC=n" >> $1.config
