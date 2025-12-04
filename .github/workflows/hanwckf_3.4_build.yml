@@ -28,7 +28,7 @@ permissions: write-all
 
 env:
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  REPO_URL: https://github.com/hanwckf/rt-n56u.git
+  REPO_URL: https://github.com/weijiefu1673/rt-n56u.git
   REPO_BRANCH: master
   TNAME: WR1200JS
   DEPENDS_FILE: depends.txt
