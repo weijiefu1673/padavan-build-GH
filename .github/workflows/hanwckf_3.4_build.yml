@@ -34,7 +34,7 @@ env:
   DEPENDS_FILE: depends.txt
   SETTING_SCRIPT: config/hanwckf_3.4_settings.sh
   UPLOAD_FIRMWARE: true
-  UPLOAD_RELEASE: false
+  UPLOAD_RELEASE: true
 
 jobs:
   build:
